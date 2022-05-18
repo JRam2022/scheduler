@@ -3,18 +3,11 @@ import classNames from "classnames";
 import "components/Button.scss";
 
 export default function Button(props) {
-   let buttonClass = "button";
-   console.log(props)
-
-   if (props.confirm) {
-      buttonClass += " button--confirm";
-   }
-
-   if (props.danger) {
-      buttonClass += " button--danger";
-   }
-
-
-
+   const buttonClass = classNames("button", {
+      " button--confirm": props.confirm,
+      " button--danger": props.danger
+   });
+   
+   //classNames('foo', { bar: true }); // => 'foo bar'
    return <button disabled={props.disabled} onClick={props.onClick} className={buttonClass}>{props.children}</button>;
 }
