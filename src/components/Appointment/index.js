@@ -9,7 +9,7 @@ export default function Appointment(props) {
   return (
   <arcticle className="appointment">
     <Header time={props.time}/>
-      {props.interview ? <Show interviewer={props.interview.interviewer}student={props.interview.student}/> : <Empty/>}
+    {props.interview ? <Show interviewer={props.interview.interviewer}student={props.interview.student}/> : <Empty/>}
   </arcticle>
   );
 }
