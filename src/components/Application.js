@@ -61,9 +61,17 @@ const appointments = {
   }
 };
 
+
 export default function Application(props) {
   const [day, setDay] = useState("Monday");
 
+  const appointmentItem = Object.values(appointments).map((appointment) => 
+    <Appointment
+      key={appointment.id}
+      {...appointment}
+    />
+  )
+  
   return (
     <main className="layout">
       <section className="sidebar">
@@ -85,12 +93,10 @@ export default function Application(props) {
         alt="Lighthouse Labs" />
       </section>
       <section className="schedule">
-        {Object.values(appointments).map((appointment) => 
-          <Appointment
-            key={appointment.id}
-            {...appointment}
-          />
-        )}
+        <ul>
+          {appointmentItem}
+          <Appointment key="last" time="5pm" />
+        </ul>
       </section>
     </main>
   );
