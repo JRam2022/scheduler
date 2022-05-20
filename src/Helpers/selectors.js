@@ -5,5 +5,5 @@ export function getAppointmentsForDay(state, day) {
     return [];
   }
   // returns list of appointments on that day
-  return dayFound.appointments.map((a) => state.appointments[a])
+  return dayFound.appointments.map((a) => state.appointments[a]);
 }
