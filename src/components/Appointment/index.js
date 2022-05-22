@@ -3,13 +3,35 @@ import "./styles.scss"
 import Header from "./Header";
 import Empty from "./Empty";
 import Show from "./Show";
+import useVisualMode from "hooks/useVisualMode";
+import Form from "components/Form";
 
+const EMPTY = "EMPTY";
+const SHOW = "SHOW";
+const CREATE = "CREATE";
 
 export default function Appointment(props) {
+  const { mode, transition, back } = useVisualMode(
+    props.interview ? SHOW : EMPTY
+  );
+
   return (
-  <arcticle className="appointment">
+  <article className="appointment">
     <Header time={props.time}/>
-    {props.interview ? <Show interviewer={props.interview.interviewer}student={props.interview.student}/> : <Empty/>}
-  </arcticle>
+    {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
+    {mode === SHOW && (
+      <Show
+        student={props.interview.student}
+        interview={props.interview.interviewer}
+        
+      />
+    )}
+    {mode === CREATE && (
+      <Form
+        interviewers={[]}
+        onCancel={() => transition(EMPTY)} // prop.interviewers
+      />
+    )}
+  </article>
   );
 }

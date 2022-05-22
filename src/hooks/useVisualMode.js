@@ -16,15 +16,15 @@ export default function useVisualMode(initial) {
     }
   }
 
-    function back() {
-      const secLastIndex = history.length - 2;
-      const setNewHistory = history.slice(0,-1)
-      
-      if (history.length >= 2) {
-        setMode(history[secLastIndex]);
-        setHistory(setNewHistory);
-      }
+  function back() {
+    const secLastIndex = history.length - 2;
+    const setNewHistory = history.slice(0,-1)
+    
+    if (history.length >= 2) {
+      setMode(history[secLastIndex]);
+      setHistory(setNewHistory);
     }
+  }
   
   return { mode, transition, back };
 }
