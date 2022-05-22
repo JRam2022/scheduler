@@ -19,7 +19,6 @@ export function getInterviewersForDay(state, day) {
   
 }
 
-
 export function getInterview(state, interview) {
   //checks to see if there is an interview
   if (!interview) {
