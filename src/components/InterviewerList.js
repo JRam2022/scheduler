@@ -14,6 +14,7 @@ export default function InterviewerList(props) {
       setInterviewer={() => props.onChange(interviewer.id)}
     />
   )
+  console.log("INTERVIEWER ITEM", interviewerItem)
   
   return (
     <section className="interviewers">
