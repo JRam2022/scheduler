@@ -9,10 +9,10 @@ export default function useVisualMode(initial) {
     if (replace === true) {
       console.log(`Transition to ${newMode} by REPLACING ${mode}`);
       setMode(newMode)
-      setHistory([...history, newMode])
+      setHistory([...history.slice(0, -1), newMode])
     } else {
       setMode(newMode)
-      setHistory([...history])
+      setHistory([...history, newMode])
     }
   }
 
@@ -25,7 +25,7 @@ export default function useVisualMode(initial) {
       setHistory(setNewHistory);
     }
   }
-  
+  console.log("HISTORY", history)
   return { mode, transition, back };
 }
 
