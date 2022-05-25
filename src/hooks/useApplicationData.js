@@ -27,27 +27,19 @@ import axios from "axios";
     }, []);
 
     function bookInterview(id, interview) {
-      console.log(state)
       const appointment = {
         ...state.appointments[id],
         interview: { ...interview }
       };
-  
-      //console.log("APPOINTMENT++++++++", appointment)
+
       const appointments = {
         ...state.appointments,
         [id]: appointment
       };
-      //console.log("APPOINTMENTS-------", appointments)
-      const spots = {
-        ...state.day[id]
-      }
-
-      console.log("SPOTS =============>", spots)
 
       return axios.put(`/api/appointments/${id}`, {interview})
       .then((response) => {
-        setState({...state, appointments});
+        setState(updateSpots(state, appointments))
       })
     }
 
@@ -62,11 +54,38 @@ import axios from "axios";
           ...state.appointments,
           [id]: appointment
         };
-        setState({...state, appointments});
+        setState(updateSpots(state, appointments))
       })
     }
 
     return { state, setDay, bookInterview, cancelInterview }
+  }
+
+
+  const countSpots = (state, appointments) => {
+    const currentDay = state.days.find((day) => day.name === state.day);
+    const appointmentID = currentDay.appointments;
+    //Counts spots that are null/available
+    const spots = appointmentID.filter((id) => !appointments[id].interview).length;
+
+    return spots;
+  }
+
+  const updateSpots = (state, appointments) => {
+    const updateState = {...state};
+    const updateDays = [...state.days];
+    const updateDay = {...state.days.find((day) => day.name === state.day)};
+
+    const spots = countSpots(state, appointments);
+    updateDay.spots = spots;
+
+    const updateDayIndex = state.days.findIndex((day) => day.name === state.day);
+    updateDays[updateDayIndex] = updateDay;
+    
+    updateState.days = updateDays;
+    updateState.appointments = appointments;
+
+    return updateState;
   }
 
 
