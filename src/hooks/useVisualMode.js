@@ -25,7 +25,7 @@ export default function useVisualMode(initial) {
       setHistory(setNewHistory);
     }
   }
-  console.log("HISTORY", history)
+  
   return { mode, transition, back };
 }
 

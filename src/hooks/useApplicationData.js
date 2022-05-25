@@ -27,19 +27,27 @@ import axios from "axios";
     }, []);
 
     function bookInterview(id, interview) {
+      console.log(state)
       const appointment = {
         ...state.appointments[id],
         interview: { ...interview }
       };
   
+      //console.log("APPOINTMENT++++++++", appointment)
       const appointments = {
         ...state.appointments,
         [id]: appointment
       };
-  
+      //console.log("APPOINTMENTS-------", appointments)
+      const spots = {
+        ...state.day[id]
+      }
+
+      console.log("SPOTS =============>", spots)
+
       return axios.put(`/api/appointments/${id}`, {interview})
       .then((response) => {
-        setState({...state,appointments});
+        setState({...state, appointments});
       })
     }
 
