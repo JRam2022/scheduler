@@ -10,17 +10,17 @@ export default function useVisualMode(initial) {
     // replaces history with the newest state 
     if (replace === true) {
       setMode(newMode)
-      setHistory([...history.slice(0, -1), newMode])
+      setHistory([...history.slice(0, -1), newMode]);
     } else {
       setMode(newMode)
-      setHistory([...history, newMode])
+      setHistory([...history, newMode]);
     }
   }
 
   // goes back to previous history
   function back() {
     const secLastIndex = history.length - 2;
-    const setNewHistory = history.slice(0,-1)
+    const setNewHistory = history.slice(0,-1);
     
     // if history only contains one state it will not revert to empty state
     if (history.length >= 2) {
