@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
   export default function useApplicationData() {
-
+    // keeps track of state for application
     const [state, setState] = useState({
       day: "Monday",
       days: [],
@@ -12,6 +12,7 @@ import axios from "axios";
 
     const setDay = day => setState({...state, day});
 
+    // gets api data and sets state for use
     useEffect(() => {
       Promise.all([
         axios.get('http://localhost:8001/api/appointments'),
@@ -26,7 +27,9 @@ import axios from "axios";
       })
     }, []);
 
+
     function bookInterview(id, interview) {
+      // prop drills down to the object needed
       const appointment = {
         ...state.appointments[id],
         interview: { ...interview }
@@ -37,14 +40,19 @@ import axios from "axios";
         [id]: appointment
       };
 
+      // sets state of api to include new interview
       return axios.put(`/api/appointments/${id}`, {interview})
       .then((response) => {
         setState(updateSpots(state, appointments))
       })
     }
 
+
     function cancelInterview(id) {
+      //deletes existing interview
       return axios.delete(`/api/appointments/${id}`)
+
+      //sets state to exclude cancelled interview
       .then((response) => {
         const appointment = {
           ...state.appointments[id],
@@ -61,7 +69,7 @@ import axios from "axios";
     return { state, setDay, bookInterview, cancelInterview }
   }
 
-
+  
   const countSpots = (state, appointments) => {
     const currentDay = state.days.find((day) => day.name === state.day);
     const appointmentID = currentDay.appointments;
@@ -72,16 +80,19 @@ import axios from "axios";
   }
 
   const updateSpots = (state, appointments) => {
+    // prop drills to spot in days
     const updateState = {...state};
     const updateDays = [...state.days];
     const updateDay = {...state.days.find((day) => day.name === state.day)};
 
     const spots = countSpots(state, appointments);
+    // sets spot to the new value
     updateDay.spots = spots;
 
     const updateDayIndex = state.days.findIndex((day) => day.name === state.day);
     updateDays[updateDayIndex] = updateDay;
     
+    // updates state to include the new spot set
     updateState.days = updateDays;
     updateState.appointments = appointments;
 
