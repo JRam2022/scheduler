@@ -4,6 +4,7 @@ import "components/DayListItem.scss"
 
 export default function DayListItem(props) {
   
+  // Updates class for css to show different states
   const dayClass = classNames("day-list__item",{
     "day-list__item--selected": props.selected,
     "day-list__item--full": props.spots === 0
@@ -11,6 +12,7 @@ export default function DayListItem(props) {
 
   // Returns correct string for spots
   const formatSpots = function() {
+    
     if (props.spots === 0) {
       return "no spots remaining";
     }
