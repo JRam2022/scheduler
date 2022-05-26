@@ -11,9 +11,9 @@ export default function DayList(props) {
       selected={day.name === props.value}
       setDay={props.onChange}
       />
-      
-  )
+  );
+
   return (
     <ul>{dayOfWeek}</ul>
-  )
+  );
 };
