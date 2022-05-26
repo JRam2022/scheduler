@@ -6,29 +6,35 @@ import Button from "./Button";
 export default function Form(props) {
   const [student, setStudent] = useState(props.student || "");
   const [interviewer, setInterviewer] = useState(props.interviewer || null);
-  const [error, setError] = useState("")
-  
+  const [error, setError] = useState("");
   
   const reset = function() {
-    setStudent("")
+    setStudent("");
     setInterviewer(null);
   }
 
+  // For cancel button to reset state and empty input field
   const cancel = function() {
-    reset()
-    props.onCancel()
+    reset();
+    props.onCancel();
   }
 
+  // Check to see if student and interviewer are blank
   const validate = function() {
+
     if (student === "") {
       setError("Student name cannot be blank");
       return;
     }
+
     if (interviewer === null) {
       setError("Please select an interviewer");
       return;
     }
+
+    // resets error state to empty after being called
     setError("");
+    
     props.onSave(student, interviewer);
   }
 
